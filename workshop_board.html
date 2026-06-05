@@ -209,6 +209,45 @@
     .tile{ flex-basis:74vw; }
   }
 </style>
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-app.js";
+  import { getFirestore, collection, doc, setDoc, deleteDoc, onSnapshot }
+    from "https://www.gstatic.com/firebasejs/12.14.0/firebase-firestore.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyBncN-3PtZn99MkTQ0KBNp1xrjD6tswEsQ",
+    authDomain: "cauhai20260608.firebaseapp.com",
+    projectId: "cauhai20260608",
+    storageBucket: "cauhai20260608.firebasestorage.app",
+    messagingSenderId: "690586784551",
+    appId: "1:690586784551:web:df9e8fdc964a427a01cf02"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+
+  // Expose a tiny API for the main (non-module) script.
+  window.FB = {
+    // subscribe to a collection; cb(arrayOfDocs) fires on every change
+    subscribe(name, cb){
+      return onSnapshot(collection(db, name), (snap)=>{
+        const arr = [];
+        snap.forEach(d => arr.push(d.data()));
+        cb(arr);
+      }, (err)=>{ console.error('구독 오류', err); });
+    },
+    // create or update one card (id is the document id)
+    async put(name, card){
+      await setDoc(doc(db, name, String(card.id)), card);
+    },
+    // delete one card
+    async remove(name, id){
+      await deleteDoc(doc(db, name, String(id)));
+    }
+  };
+  // Let the main script know Firebase is ready.
+  window.dispatchEvent(new Event('fb-ready'));
+</script>
 </head>
 <body>
 
@@ -470,12 +509,23 @@ const exampleBoard2=[
   { id:'ex3', author:"미술 / 박미술", taskName:"시선을 멈추게 하는 메시지", goal:"특정 사회적 메시지를 전달하기 위해 가장 효과적인 시각 매체와 표현 기법 선택 및 활용", role:"소셜 임팩트 캠페인 아트 디렉터", audience:"캠페인에 참여할 대중 및 후원 기업", situation:"지역사회의 환경 문제를 알리기 위해 강력한 시각적 자극이 필요한 상황", product:"전통 회화와 디지털 매체를 융합한 포스터 및 작가 노트", standards:"매체 특성의 융합 활용도, 주제 전달력, 창의성, 의도 설명" }
 ];
 
-const LS1='workshop_board1_v4', LS2='workshop_board2_v4';
-function load(k){ try{ const v=localStorage.getItem(k); return v?JSON.parse(v):[]; }catch(e){ return []; } }
-function save(k,v){ try{ localStorage.setItem(k,JSON.stringify(v)); }catch(e){} }
+// ===== Firestore collection names (data lives in the cloud) =====
+const COL1='backward_board', COL2='grasps_board';
 
-let board1Cards=load(LS1);
-let board2Cards=load(LS2);
+// Local mirrors of the cloud data; kept in sync by the realtime subscription.
+let board1Cards=[];
+let board2Cards=[];
+
+// Save (create/update) one card to the cloud. Returns a promise.
+function cloudPut(col, card){
+  if(window.FB) return window.FB.put(col, card);
+  return Promise.reject('Firebase 미연결');
+}
+// Delete one card from the cloud.
+function cloudRemove(col, id){
+  if(window.FB) return window.FB.remove(col, id);
+  return Promise.reject('Firebase 미연결');
+}
 let activeTab='board1', isFormOpen=false;
 let editId1=null, editId2=null;
 let currentOpen=null; // {board, id, isEx}
@@ -624,46 +674,63 @@ function deleteCurrent(){
   if(!currentOpen || currentOpen.isEx) return;
   if(!confirm('이 설계안을 삭제할까요? 되돌릴 수 없습니다.')) return;
   const id=currentOpen.id;
-  if(currentOpen.board===1){ board1Cards=board1Cards.filter(x=>x.id!==id); save(LS1,board1Cards); if(editId1===id){editId1=null;} renderBoard1(); }
-  else { board2Cards=board2Cards.filter(x=>x.id!==id); save(LS2,board2Cards); if(editId2===id){editId2=null;} renderBoard2(); }
+  const col = currentOpen.board===1 ? COL1 : COL2;
+  if(currentOpen.board===1 && editId1===id) editId1=null;
+  if(currentOpen.board===2 && editId2===id) editId2=null;
   closeModal();
-  toast('설계안이 삭제되었습니다');
+  cloudRemove(col, id)
+    .then(function(){ toast('설계안이 삭제되었습니다'); })
+    .catch(function(e){ console.error(e); toast('삭제 실패 — 인터넷 연결을 확인하세요'); });
 }
 function submit1(){
   const author=val('form1','author').trim();
   if(!author){ const el=document.querySelector('#form1 [name="author"]'); if(el)el.focus(); toast('교과 및 성함을 입력해주세요'); return; }
   const data={ author:author, target:val('form1','target'), lens:val('form1','lens'), micro:val('form1','micro'), generalization:val('form1','generalization'), questions:val('form1','questions'), assessment:val('form1','assessment'), learningExperience:val('form1','learningExperience') };
-  if(editId1!=null){
-    const c=board1Cards.find(x=>x.id===editId1); if(c) Object.assign(c,data);
+  const isEdit = (editId1!=null);
+  if(isEdit){
+    const ex=board1Cards.find(x=>x.id===editId1);
+    data.id=editId1; data.createdAt=(ex&&ex.createdAt)||Date.now();
     editId1=null; document.querySelector('#form1 .submit').lastChild.textContent='보드에 등록하기';
-    save(LS1,board1Cards); clearForm('form1'); isFormOpen=false; applyFormVisibility(); renderBoard1();
-    toast('설계안이 수정되었습니다'); return;
+  } else {
+    data.id=Date.now(); data.createdAt=Date.now();
   }
-  data.id=Date.now(); data.createdAt=Date.now(); board1Cards.push(data);
-  save(LS1,board1Cards); clearForm('form1'); isFormOpen=false; applyFormVisibility(); renderBoard1();
-  toast('설계안이 보드에 등록되었습니다');
-  setTimeout(function(){ const r=document.getElementById('rail1'); if(r.firstElementChild&&r.firstElementChild.scrollIntoView)r.firstElementChild.scrollIntoView({behavior:'smooth',inline:'center',block:'nearest'}); },140);
+  clearForm('form1'); isFormOpen=false; applyFormVisibility();
+  cloudPut(COL1, data)
+    .then(function(){ toast(isEdit?'설계안이 수정되었습니다':'설계안이 보드에 등록되었습니다'); })
+    .catch(function(e){ console.error(e); toast('저장 실패 — 인터넷 연결을 확인하세요'); });
 }
 function submit2(){
   const author=val('form2','author').trim();
   if(!author){ const el=document.querySelector('#form2 [name="author"]'); if(el)el.focus(); toast('교과 및 성함을 입력해주세요'); return; }
   const data={ author:author, taskName:val('form2','taskName'), goal:val('form2','goal'), role:val('form2','role'), audience:val('form2','audience'), situation:val('form2','situation'), product:val('form2','product'), standards:val('form2','standards') };
-  if(editId2!=null){
-    const c=board2Cards.find(x=>x.id===editId2); if(c) Object.assign(c,data);
+  const isEdit = (editId2!=null);
+  if(isEdit){
+    const ex=board2Cards.find(x=>x.id===editId2);
+    data.id=editId2; data.createdAt=(ex&&ex.createdAt)||Date.now();
     editId2=null; document.querySelector('#form2 .submit').lastChild.textContent='GRASPS 보드에 등록하기';
-    save(LS2,board2Cards); clearForm('form2'); isFormOpen=false; applyFormVisibility(); renderBoard2();
-    toast('과제가 수정되었습니다'); return;
+  } else {
+    data.id=Date.now(); data.createdAt=Date.now();
   }
-  data.id=Date.now(); data.createdAt=Date.now(); board2Cards.push(data);
-  save(LS2,board2Cards); clearForm('form2'); isFormOpen=false; applyFormVisibility(); renderBoard2();
-  toast('GRASPS 과제가 보드에 등록되었습니다');
-  setTimeout(function(){ const r=document.getElementById('rail2'); if(r.firstElementChild&&r.firstElementChild.scrollIntoView)r.firstElementChild.scrollIntoView({behavior:'smooth',inline:'center',block:'nearest'}); },140);
+  clearForm('form2'); isFormOpen=false; applyFormVisibility();
+  cloudPut(COL2, data)
+    .then(function(){ toast(isEdit?'과제가 수정되었습니다':'GRASPS 과제가 보드에 등록되었습니다'); })
+    .catch(function(e){ console.error(e); toast('저장 실패 — 인터넷 연결을 확인하세요'); });
 }
 
 function buildTicks(id){ const el=document.getElementById(id); let h=''; for(let i=0;i<40;i++){ const tall=(i%5===0); h+='<i style="height:'+(tall?22:10)+'px"></i>'; } el.innerHTML=h; }
 buildTicks('ticks1'); buildTicks('ticks2');
 
+// First paint (empty boards) so the page isn't blank before data arrives.
 renderBoard1(); renderBoard2(); applyFormVisibility();
+
+// ===== Connect to Firebase and start realtime sync =====
+function startSync(){
+  if(!window.FB){ return; }
+  window.FB.subscribe(COL1, function(arr){ board1Cards=arr; renderBoard1(); });
+  window.FB.subscribe(COL2, function(arr){ board2Cards=arr; renderBoard2(); });
+}
+if(window.FB){ startSync(); }
+else { window.addEventListener('fb-ready', startSync, { once:true }); }
 </script>
 </body>
 </html>
