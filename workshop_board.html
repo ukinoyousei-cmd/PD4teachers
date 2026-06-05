@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2026 중대부고 AI 융합교육연구회 - 3차시 개념기반 수업 설계 워크숍</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=Gowun+Batang:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css" />
+<style>
+  :root{
+    --bg:#eef3f4;
+    --bg2:#e6edee;
+    --paper:#f7fafb;
+    --ink:#10171a;
+    --ink-soft:#46555b;
+    --ink-faint:#7e8e94;
+    --line:#d7e1e3;
+    --line-soft:#e3ebec;
+    --card:#fbfdfd;
+
+    --green:#2f6f55;
+    --green-d:#214f3d;
+    --green-bg:#e3f0ea;
+    --green-line:#c6e0d4;
+
+    --sky:#3a86c8;
+    --sky-d:#2b6aa3;
+    --sky-bg:#e6f1fa;
+    --sky-line:#cfe4f3;
+
+    --ink-deep:#101b1f;
+
+    --blue:#3a86c8; --blue-bg:#e6f1fa; --blue-line:#cfe4f3;
+    --green2:#2f6f55; --green2-bg:#e3f0ea; --green2-line:#c6e0d4;
+    --slate:#445a63; --slate-bg:#e8eef0; --slate-line:#d3dee1;
+
+    --shadow-sm:0 1px 2px rgba(16,23,26,.05), 0 4px 14px rgba(16,23,26,.05);
+    --shadow-md:0 18px 48px -18px rgba(16,23,26,.26), 0 3px 8px rgba(16,23,26,.06);
+    --shadow-lg:0 50px 110px -34px rgba(16,23,26,.46);
+  }
+  *{ box-sizing:border-box; margin:0; padding:0; }
+  html{ scroll-behavior:smooth; }
+  body{
+    font-family:"Pretendard Variable","Pretendard",-apple-system,system-ui,sans-serif;
+    color:var(--ink); line-height:1.55; -webkit-font-smoothing:antialiased;
+    letter-spacing:-.01em; padding-bottom:90px;
+    background:linear-gradient(180deg, #eef3f4 0%, #e6edee 100%);
+    background-attachment:fixed;
+    position:relative;
+  }
+  .serif{ font-family:"Gowun Batang",serif; }
+  .display{ font-family:"Cormorant Garamond",serif; }
+
+  header{ position:sticky; top:0; z-index:50; background:rgba(247,250,251,.82); backdrop-filter:saturate(160%) blur(16px); border-bottom:1px solid var(--line); }
+  .header-inner{ max-width:1240px; margin:0 auto; padding:15px 30px; display:flex; align-items:center; justify-content:space-between; gap:20px; flex-wrap:wrap; }
+  .brand{ display:flex; align-items:center; gap:13px; }
+  .logo{ width:42px; height:42px; border-radius:11px; flex-shrink:0; background:linear-gradient(150deg,#23423a,#101b1f); display:flex; align-items:center; justify-content:center; color:#eef3f4; box-shadow:0 8px 18px -6px rgba(16,23,26,.5); }
+  .brand h1{ font-size:18px; font-weight:700; letter-spacing:-.03em; display:flex; align-items:center; gap:10px; }
+  .signal{ width:9px; height:9px; border-radius:50%; background:#34c759; animation:pulse 2.4s infinite; flex-shrink:0; }
+  @keyframes pulse{ 0%{ box-shadow:0 0 0 0 rgba(52,199,89,.5);} 70%{ box-shadow:0 0 0 7px rgba(52,199,89,0);} 100%{ box-shadow:0 0 0 0 rgba(52,199,89,0);} }
+  .brand .tagline{ font-size:11px; color:var(--ink-faint); margin-top:3px; letter-spacing:.05em; }
+  .tabs{ display:flex; }
+  .tab{ position:relative; border:none; cursor:pointer; background:transparent; padding:10px 4px; margin:0 16px; font-family:inherit; font-size:14px; font-weight:600; color:var(--ink-faint); transition:color .2s; }
+  .tab:hover{ color:var(--ink-soft); }
+  .tab.active{ color:var(--ink); }
+  .tab.active::after{ content:""; position:absolute; left:0; right:0; bottom:-1px; height:2px; background:var(--ink-deep); }
+
+  .hero{ max-width:1240px; margin:0 auto; padding:56px 30px 18px; text-align:center; }
+  .hero .toprule{ display:flex; align-items:center; justify-content:center; gap:18px; color:var(--ink-faint); font-size:11.5px; letter-spacing:.2em; text-transform:uppercase; }
+  .hero .toprule .ln{ height:1px; width:120px; background:var(--line); }
+  .hero h2{ font-style:italic; font-size:54px; line-height:1.05; font-weight:600; letter-spacing:.01em; margin:14px 0 0; }
+  .hero .kr{ font-family:"Gowun Batang",serif; font-size:16px; color:var(--ink-soft); margin-top:16px; }
+
+  main{ max-width:1240px; margin:0 auto; padding:0 30px; }
+  .toolbar{ display:flex; justify-content:space-between; align-items:center; padding:30px 0 6px; flex-wrap:wrap; gap:14px; }
+  .toolbar .count{ font-size:12.5px; color:var(--ink-faint); letter-spacing:.02em; }
+  .add-btn{ display:inline-flex; align-items:center; gap:9px; border:none; cursor:pointer; font-family:inherit; background:var(--ink-deep); color:#eef3f4; padding:11px 22px; border-radius:999px; font-size:13.5px; font-weight:600; box-shadow:var(--shadow-md); transition:transform .18s, box-shadow .18s; }
+  .add-btn:hover{ transform:translateY(-2px); box-shadow:var(--shadow-lg); }
+  .add-btn svg{ width:17px; height:17px; }
+
+  .toast{ position:fixed; left:50%; bottom:34px; transform:translateX(-50%) translateY(28px); z-index:200; background:var(--green-d); color:#eef3f4; padding:13px 24px; border-radius:999px; font-size:13.5px; font-weight:600; box-shadow:var(--shadow-lg); display:flex; align-items:center; gap:9px; opacity:0; pointer-events:none; transition:opacity .3s, transform .3s; }
+  .toast.show{ opacity:1; transform:translateX(-50%) translateY(0); }
+  .toast svg{ width:17px; height:17px; color:#8fe0a6; }
+
+  .panel{ background:var(--card); border:1px solid var(--line); border-radius:22px; box-shadow:var(--shadow-md); padding:30px; margin:18px 0 30px; animation:rise .35s cubic-bezier(.2,.7,.3,1); }
+  @keyframes rise{ from{ opacity:0; transform:translateY(-12px);} to{ opacity:1; transform:translateY(0);} }
+  .panel-head{ display:flex; align-items:center; gap:11px; padding-bottom:18px; margin-bottom:22px; border-bottom:1px solid var(--line-soft); }
+  .panel-head svg{ width:22px; height:22px; color:var(--green); }
+  .panel-head h3{ font-size:18px; font-weight:700; letter-spacing:-.03em; }
+  .field label, .field .lab{ display:block; font-size:12.5px; font-weight:700; margin-bottom:7px; color:var(--ink); }
+  input[type=text], textarea{ width:100%; font-family:inherit; font-size:14px; color:var(--ink); background:#fff; border:1.5px solid var(--line); border-radius:11px; padding:11px 14px; transition:border-color .16s, box-shadow .16s; resize:none; }
+  input::placeholder, textarea::placeholder{ color:#a9b5b9; }
+  input:focus, textarea:focus{ outline:none; border-color:var(--green); box-shadow:0 0 0 4px rgba(47,111,85,.14); }
+  .grid2{ display:grid; grid-template-columns:1fr 1fr; gap:18px; }
+  .meta-box{ background:#eef3f4; border:1px solid var(--line); border-radius:15px; padding:20px; }
+  .stage{ border-radius:15px; padding:20px; margin-top:18px; }
+  .stage.s1{ background:var(--blue-bg); border:1px solid var(--blue-line); }
+  .stage.s2{ background:var(--slate-bg); border:1px solid var(--slate-line); }
+  .stage.s3{ background:var(--green2-bg); border:1px solid var(--green2-line); }
+  .stage-title{ display:flex; align-items:center; gap:9px; font-size:15px; font-weight:700; padding-bottom:11px; margin-bottom:15px; }
+  .stage.s1 .stage-title{ color:var(--blue); border-bottom:1px solid var(--blue-line); }
+  .stage.s2 .stage-title{ color:var(--slate); border-bottom:1px solid var(--slate-line); }
+  .stage.s3 .stage-title{ color:var(--green2); border-bottom:1px solid var(--green2-line); }
+  .pill{ font-size:11px; font-weight:700; color:#fff; padding:3px 9px; border-radius:6px; }
+  .pill.b{ background:var(--blue); } .pill.p{ background:var(--slate); } .pill.a{ background:var(--green2); }
+  .stage .field + .field{ margin-top:14px; } .stage .lab{ font-size:12px; }
+  .stage.s1 .lab{ color:var(--blue); } .stage.s2 .lab{ color:var(--slate); } .stage.s3 .lab{ color:var(--green2); }
+  .submit-row{ display:flex; justify-content:flex-end; padding-top:22px; }
+  .submit{ display:inline-flex; align-items:center; gap:9px; cursor:pointer; border:none; font-family:inherit; color:#eef3f4; padding:13px 28px; border-radius:12px; font-size:14.5px; font-weight:700; transition:transform .15s; background:linear-gradient(135deg,#2f6f55,#214f3d); box-shadow:0 10px 24px -10px rgba(33,79,61,.6); }
+  .submit svg{ width:18px; height:18px; } .submit:hover{ transform:translateY(-2px); }
+  .grasps-grid{ display:grid; grid-template-columns:1fr 1fr; gap:18px; }
+  .span2{ grid-column:1 / -1; }
+  .gbox{ background:#fff; border:1px solid var(--sky-line); border-radius:15px; padding:18px; box-shadow:var(--shadow-sm); }
+  .gbox.accent{ background:var(--sky-bg); }
+  .gbox .lab{ display:flex; align-items:center; gap:9px; font-size:13.5px; font-weight:700; color:var(--sky-d); margin-bottom:11px; }
+  .gbadge{ width:29px; height:29px; border-radius:8px; background:linear-gradient(135deg,#4c97d6,#2b6aa3); color:#fff; font-weight:800; font-size:15px; display:flex; align-items:center; justify-content:center; }
+  .gbox textarea{ background:#f4f9fc; border-color:var(--sky-line); } .gbox.accent textarea{ background:#fff; }
+  .meta-grasps{ display:flex; gap:16px; } .meta-grasps .f1{ flex:1; } .meta-grasps .f2{ flex:2; }
+
+  .sec-head{ display:flex; align-items:baseline; gap:16px; margin:44px 0 6px; }
+  .sec-head .idx{ font-family:"Cormorant Garamond",serif; font-style:italic; font-size:19px; color:var(--ink-faint); }
+  .sec-head .ln{ flex:1; border-top:1px solid var(--line); }
+  .sec-head h3{ font-size:13px; font-weight:700; letter-spacing:.18em; text-transform:uppercase; color:var(--ink-soft); }
+  .sec-note{ font-size:12px; color:var(--ink-faint); margin:0 0 4px; }
+
+  .rail-wrap{ position:relative; padding:30px 0 10px; }
+  .rail{ display:flex; gap:18px; overflow-x:auto; padding:46px 8px 30px; align-items:center; scroll-snap-type:x proximity; scrollbar-width:thin; scrollbar-color:#bcccd0 transparent; }
+  .rail::-webkit-scrollbar{ height:6px; }
+  .rail::-webkit-scrollbar-thumb{ background:#c4d2d5; border-radius:99px; }
+  .rail::-webkit-scrollbar-track{ background:transparent; }
+  .tile{ scroll-snap-align:center; flex:0 0 230px; height:320px; border-radius:20px; overflow:hidden; cursor:pointer; position:relative; box-shadow:0 10px 28px -10px rgba(16,23,26,.34), 0 4px 10px rgba(16,23,26,.12); transition:transform .35s cubic-bezier(.2,.7,.3,1), box-shadow .35s; background:#cdd9da; }
+  .tile:hover{ transform:translateY(-10px) scale(1.02); box-shadow:0 30px 60px -18px rgba(16,23,26,.46), 0 10px 22px rgba(16,23,26,.18); z-index:5; }
+  .tile .grad{ position:absolute; inset:0; }
+  .tg-1{ background:linear-gradient(165deg,#3f7d63,#1f4334); }
+  .tg-2{ background:linear-gradient(165deg,#4c97d6,#244e74); }
+  .tg-3{ background:linear-gradient(165deg,#7fb6df,#3a6d97); }
+  .tg-4{ background:linear-gradient(165deg,#2b4a44,#0f1f1c); }
+  .tg-5{ background:linear-gradient(165deg,#5d8f7d,#274d3f); }
+  .tg-ex{ background:linear-gradient(165deg,#9fb6bd,#4a5f66); }
+  .tile .grad::after{ content:""; position:absolute; inset:0; background:radial-gradient(140px 120px at 50% 14%, rgba(255,255,255,.22), transparent 70%); }
+  .tile .veil{ position:absolute; inset:0; background:linear-gradient(180deg, rgba(8,14,12,0) 38%, rgba(8,14,12,.82) 100%); }
+  .tile .content{ position:absolute; inset:0; padding:22px 18px; display:flex; flex-direction:column; justify-content:flex-end; color:#f1f6f5; }
+  .tile .badge{ position:absolute; top:16px; left:50%; transform:translateX(-50%); font-size:9.5px; font-weight:700; letter-spacing:.14em; background:rgba(255,255,255,.22); border:1px solid rgba(255,255,255,.4); padding:3px 9px; border-radius:99px; }
+  .tile .num{ font-family:"Cormorant Garamond",serif; font-style:italic; font-size:14px; opacity:.85; margin-bottom:6px; }
+  .tile .kicker{ font-size:9.5px; letter-spacing:.16em; text-transform:uppercase; opacity:.8; }
+  .tile .ttl{ font-family:"Gowun Batang",serif; font-size:16px; line-height:1.35; margin-top:6px; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; }
+  .tile .auth{ font-size:11.5px; opacity:.85; margin-top:7px; padding-top:7px; border-top:1px solid rgba(255,255,255,.25); }
+  .tile .meta-line{ font-size:11px; line-height:1.45; opacity:.92; margin-top:6px; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; }
+  .tile .meta-line .ml-k{ font-weight:700; opacity:.78; letter-spacing:.02em; }
+  .tile .auth{ font-size:11.5px; opacity:.85; margin-top:7px; padding-top:7px; border-top:1px solid rgba(255,255,255,.25); margin-bottom:2px; }
+  .rail-empty{ flex:1 0 auto; text-align:center; padding:60px 24px; color:var(--ink-faint); background:var(--card); border:1.5px dashed var(--line); border-radius:18px; font-size:14px; align-self:stretch; display:flex; align-items:center; justify-content:center; }
+  .ticks{ display:flex; justify-content:center; align-items:flex-end; gap:4px; height:30px; margin-top:6px; opacity:.5; }
+  .ticks i{ width:2px; background:var(--ink-faint); border-radius:2px; }
+
+  .overlay{ position:fixed; inset:0; z-index:100; background:rgba(16,23,26,.52); backdrop-filter:blur(7px); display:none; align-items:flex-start; justify-content:center; padding:48px 20px; overflow-y:auto; }
+  .overlay.open{ display:flex; animation:fade .25s ease; }
+  @keyframes fade{ from{ opacity:0;} to{ opacity:1;} }
+  .modal{ width:100%; max-width:760px; background:var(--paper); border-radius:24px; box-shadow:var(--shadow-lg); overflow:hidden; animation:pop .3s cubic-bezier(.2,.7,.3,1); }
+  @keyframes pop{ from{ opacity:0; transform:translateY(18px) scale(.98);} to{ opacity:1; transform:translateY(0) scale(1);} }
+  .modal-top{ padding:36px 40px 30px; color:#f1f6f5; position:relative; }
+  .modal-top.indigo{ background:linear-gradient(150deg,#3a86c8,#244e74); }
+  .modal-top.moss{ background:linear-gradient(150deg,#2f6f55,#1f4334); }
+  .modal-top.example, .modal-top.p-ex{ background:linear-gradient(165deg,#9fb6bd,#4a5f66); }
+  .modal-top.p-1{ background:linear-gradient(165deg,#3f7d63,#1f4334); }
+  .modal-top.p-2{ background:linear-gradient(165deg,#4c97d6,#244e74); }
+  .modal-top.p-3{ background:linear-gradient(165deg,#7fb6df,#3a6d97); }
+  .modal-top.p-4{ background:linear-gradient(165deg,#2b4a44,#0f1f1c); }
+  .modal-top.p-5{ background:linear-gradient(165deg,#5d8f7d,#274d3f); }
+  .modal-top .m-kicker{ font-size:11px; letter-spacing:.22em; text-transform:uppercase; opacity:.85; }
+  .modal-top .m-title{ font-family:"Gowun Batang",serif; font-size:26px; line-height:1.32; margin-top:10px; font-weight:700; }
+  .modal-top .m-author{ font-size:13.5px; opacity:.9; margin-top:12px; }
+  .m-close{ position:absolute; top:22px; right:22px; width:38px; height:38px; border-radius:50%; border:1px solid rgba(255,255,255,.4); background:rgba(255,255,255,.12); color:#fff; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:background .18s; }
+  .m-close:hover{ background:rgba(255,255,255,.26); } .m-close svg{ width:18px; height:18px; }
+  .m-actions{ position:absolute; top:22px; right:70px; display:flex; gap:8px; }
+  .m-act{ height:38px; padding:0 14px; border-radius:999px; border:1px solid rgba(255,255,255,.4); background:rgba(255,255,255,.12); color:#fff; cursor:pointer; font-family:inherit; font-size:12.5px; font-weight:600; display:flex; align-items:center; gap:6px; transition:background .18s; }
+  .m-act:hover{ background:rgba(255,255,255,.26); }
+  .m-act svg{ width:14px; height:14px; }
+  @media (max-width:820px){ .m-actions{ position:static; margin-top:14px; } .modal-top{ padding-top:28px; } }
+  .modal-body{ padding:30px 40px 40px; }
+  .m-stage{ border-radius:15px; padding:20px 22px; margin-bottom:16px; }
+  .m-stage.s1{ background:var(--blue-bg); } .m-stage.s2{ background:var(--slate-bg); } .m-stage.s3{ background:var(--green2-bg); }
+  .m-stage .m-st-title{ display:flex; align-items:center; gap:9px; font-size:14.5px; font-weight:700; margin-bottom:14px; }
+  .m-stage.s1 .m-st-title{ color:var(--blue); } .m-stage.s2 .m-st-title{ color:var(--slate); } .m-stage.s3 .m-st-title{ color:var(--green2); }
+  .m-row{ margin-bottom:13px; } .m-row:last-child{ margin-bottom:0; }
+  .m-k{ font-size:11.5px; font-weight:700; color:var(--ink-faint); margin-bottom:5px; }
+  .m-v{ font-size:14.5px; color:var(--ink); line-height:1.7; white-space:pre-wrap; }
+  .m-grid{ display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+  .m-gcell{ background:#fff; border:1px solid var(--sky-line); border-radius:13px; padding:16px; }
+  .m-gcell.accent{ background:var(--sky-bg); grid-column:1/-1; }
+  .m-gcell .m-gk{ display:flex; align-items:center; gap:8px; font-size:13px; font-weight:700; color:var(--sky-d); margin-bottom:9px; }
+  .m-gtag{ width:24px; height:24px; border-radius:7px; background:var(--sky); color:#fff; font-weight:800; font-size:12px; display:flex; align-items:center; justify-content:center; }
+  .m-gv{ font-size:14px; color:var(--ink-soft); line-height:1.65; white-space:pre-wrap; }
+
+  /* ---------- illustrated workshop background ---------- */
+  .scene{ position:fixed; inset:0; z-index:-2; overflow:hidden; pointer-events:none; }
+  .scene svg{ width:100%; height:100%; }
+  .scene-veil{ position:fixed; inset:0; z-index:-1; pointer-events:none;
+    background:linear-gradient(180deg, rgba(241,246,247,.74) 0%, rgba(238,243,244,.86) 46%, rgba(236,241,242,.95) 100%); }
+  @media (max-width:820px){ .scene svg{ object-fit:cover; } }
+  .hidden{ display:none !important; }
+
+  @media (max-width:820px){
+    .hero h2{ font-size:38px; } .hero .toprule .ln{ width:60px; }
+    .grid2,.grasps-grid,.meta-grasps,.m-grid{ grid-template-columns:1fr; flex-direction:column; }
+    .span2{ grid-column:auto; }
+    .modal-top,.modal-body{ padding-left:24px; padding-right:24px; }
+    .tile{ flex-basis:74vw; }
+  }
+</style>
+</head>
+<body>
+
+<div class="scene" aria-hidden="true">
+<svg viewBox="0 0 1300 720" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="wall" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#eaf1f2"/><stop offset="1" stop-color="#dde7e8"/>
+    </linearGradient>
+    <linearGradient id="winlight" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#fbfdfd"/><stop offset="1" stop-color="#e8f1f4"/>
+    </linearGradient>
+    <linearGradient id="wood" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#cdab84"/><stop offset="1" stop-color="#b08d62"/>
+    </linearGradient>
+    <linearGradient id="woodTop" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#d8b98f"/><stop offset="1" stop-color="#c19a6b"/>
+    </linearGradient>
+    <linearGradient id="floor" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#d9cdbb"/><stop offset="1" stop-color="#c8b9a2"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.5" cy="0.2" r="0.7">
+      <stop offset="0" stop-color="#fff7e6" stop-opacity="0.85"/><stop offset="1" stop-color="#fff7e6" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="greenF" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3f7d63"/><stop offset="1" stop-color="#27543f"/></linearGradient>
+    <linearGradient id="skyF" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4c97d6"/><stop offset="1" stop-color="#2b6aa3"/></linearGradient>
+    <linearGradient id="darkF" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2b4a44"/><stop offset="1" stop-color="#13231f"/></linearGradient>
+  </defs>
+
+  <!-- back wall -->
+  <rect x="0" y="0" width="1300" height="560" fill="url(#wall)"/>
+  <!-- floor -->
+  <rect x="0" y="540" width="1300" height="180" fill="url(#floor)"/>
+
+  <!-- left window with blinds + daylight -->
+  <rect x="60" y="70" width="300" height="360" rx="6" fill="url(#winlight)"/>
+  <g stroke="#cdd9da" stroke-width="6" opacity="0.65">
+    <line x1="70" y1="110" x2="350" y2="110"/><line x1="70" y1="150" x2="350" y2="150"/>
+    <line x1="70" y1="190" x2="350" y2="190"/><line x1="70" y1="230" x2="350" y2="230"/>
+    <line x1="70" y1="270" x2="350" y2="270"/><line x1="70" y1="310" x2="350" y2="310"/>
+    <line x1="70" y1="350" x2="350" y2="350"/><line x1="70" y1="390" x2="350" y2="390"/>
+  </g>
+  <rect x="60" y="70" width="300" height="360" rx="6" fill="none" stroke="#c2cfd0" stroke-width="3"/>
+
+  <!-- right shelving with crockery (simplified bars) -->
+  <g opacity="0.5">
+    <rect x="930" y="150" width="320" height="10" fill="#9c8569"/>
+    <rect x="930" y="230" width="320" height="10" fill="#9c8569"/>
+    <rect x="930" y="310" width="320" height="10" fill="#9c8569"/>
+    <circle cx="980" cy="135" r="14" fill="#e7ecec"/><circle cx="1020" cy="135" r="14" fill="#dde4e4"/>
+    <rect x="1060" y="120" width="22" height="26" rx="3" fill="#d6dede"/>
+    <circle cx="980" cy="215" r="13" fill="#e2e8e8"/><rect x="1010" y="200" width="20" height="26" rx="3" fill="#cf6b5a" opacity="0.7"/>
+    <rect x="1150" y="195" width="40" height="30" rx="4" fill="#cdd6d6"/>
+  </g>
+
+  <!-- pendant lamps -->
+  <g>
+    <line x1="430" y1="0" x2="430" y2="60" stroke="#7e8e94" stroke-width="3"/>
+    <path d="M405 60 q25 36 50 0 z" fill="#2b4a44"/>
+    <ellipse cx="430" cy="92" rx="46" ry="20" fill="url(#glow)"/>
+    <line x1="780" y1="0" x2="780" y2="50" stroke="#7e8e94" stroke-width="3"/>
+    <path d="M755 50 q25 36 50 0 z" fill="#2b4a44"/>
+    <ellipse cx="780" cy="82" rx="46" ry="20" fill="url(#glow)"/>
+    <line x1="900" y1="0" x2="900" y2="40" stroke="#7e8e94" stroke-width="3"/>
+    <path d="M878 40 q22 32 44 0 z" fill="#3f7d63"/>
+    <ellipse cx="900" cy="70" rx="40" ry="18" fill="url(#glow)"/>
+  </g>
+
+  <!-- big communal wooden table -->
+  <polygon points="360,560 940,560 1060,690 240,690" fill="url(#wood)"/>
+  <polygon points="360,560 940,560 1000,600 300,600" fill="url(#woodTop)"/>
+  <g stroke="#a9855d" stroke-width="2" opacity="0.5">
+    <line x1="320" y1="640" x2="980" y2="640"/><line x1="300" y1="668" x2="1000" y2="668"/>
+  </g>
+  <!-- table legs -->
+  <rect x="330" y="688" width="16" height="28" fill="#8f6f48"/>
+  <rect x="954" y="688" width="16" height="28" fill="#8f6f48"/>
+
+  <!-- items on table: bottles, bowl, candle -->
+  <g>
+    <rect x="600" y="520" width="14" height="42" rx="4" fill="#3f7d63"/>
+    <rect x="624" y="514" width="14" height="48" rx="4" fill="#27543f"/>
+    <ellipse cx="690" cy="556" rx="40" ry="13" fill="#cdd9da"/>
+    <ellipse cx="690" cy="552" rx="40" ry="11" fill="#e3ebec"/>
+    <rect x="540" y="520" width="16" height="42" rx="3" fill="#e7ecec"/>
+  </g>
+
+  <!-- seated people around table (silhouettes, varied palette) -->
+  <!-- left side, backs to viewer -->
+  <g>
+    <circle cx="430" cy="450" r="34" fill="#2b4a44"/>
+    <path d="M386 560 q44 -78 88 0 z" fill="url(#darkF)"/>
+  </g>
+  <g>
+    <circle cx="560" cy="430" r="36" fill="#3a3630"/>
+    <path d="M512 560 q48 -92 96 0 z" fill="#f1f0ea"/>
+  </g>
+  <!-- foreground center back (white shirt, like ref) -->
+  <g>
+    <circle cx="680" cy="470" r="40" fill="#4a3f36"/>
+    <path d="M626 600 q54 -110 108 0 z" fill="#fbfdfd"/>
+  </g>
+  <!-- right side, facing -->
+  <g>
+    <circle cx="880" cy="430" r="34" fill="#3f3a33"/>
+    <path d="M838 545 q42 -74 84 0 z" fill="url(#skyF)"/>
+    <rect x="858" y="392" width="44" height="22" rx="11" fill="#2b4a44"/> <!-- cap -->
+  </g>
+  <g>
+    <circle cx="985" cy="420" r="32" fill="#4a4038"/>
+    <path d="M947 530 q38 -70 76 0 z" fill="#cdd9da"/>
+  </g>
+  <!-- far side seated, facing viewer across table -->
+  <g opacity="0.92">
+    <circle cx="520" cy="345" r="28" fill="#5a4a3a"/>
+    <path d="M488 430 q32 -58 64 0 z" fill="url(#greenF)"/>
+  </g>
+  <g opacity="0.92">
+    <circle cx="660" cy="330" r="28" fill="#3a3630"/>
+    <path d="M628 415 q32 -58 64 0 z" fill="#dfe6e6"/>
+  </g>
+  <g opacity="0.92">
+    <circle cx="800" cy="345" r="28" fill="#4a3f36"/>
+    <path d="M768 430 q32 -58 64 0 z" fill="url(#skyF)"/>
+  </g>
+
+  <!-- bench/cushions on left -->
+  <rect x="300" y="430" width="120" height="50" rx="12" fill="#cdc0ad" opacity="0.7"/>
+  <rect x="318" y="438" width="36" height="30" rx="8" fill="#b9c7c8" opacity="0.8"/>
+
+  <!-- soft daylight beam from left window -->
+  <polygon points="120,120 360,160 540,560 120,560" fill="#fffaf0" opacity="0.18"/>
+</svg>
+</div>
+<div class="scene-veil" aria-hidden="true"></div>
+
+<header>
+  <div class="header-inner">
+    <div class="brand">
+      <div class="logo"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="7" x="3" y="3" rx="1"/><rect width="9" height="7" x="3" y="14" rx="1"/><rect width="5" height="7" x="16" y="14" rx="1"/></svg></div>
+      <div>
+        <h1>2026 중대부고 AI 융합교육연구회 - 3차시 개념기반 수업 설계 워크숍 <span class="signal" title="실시간"></span></h1>
+        <div class="tagline">Designing Understanding · Backward by Design</div>
+      </div>
+    </div>
+    <div class="tabs">
+      <button id="tabBtn1" class="tab active" onclick="setActiveTab('board1')">백워드 설계 보드</button>
+      <button id="tabBtn2" class="tab" onclick="setActiveTab('board2')">GRASPS 보드</button>
+    </div>
+  </div>
+</header>
+
+<!-- ===== BOARD 1 ===== -->
+<section id="board1Section">
+  <div class="hero">
+    <div class="toprule"><span class="ln"></span><span>Backward Design · 3 Stages</span><span class="ln"></span></div>
+    <h2 class="display">Begin with the End</h2>
+    <p class="kr">바라는 결과에서 시작해, 평가와 학습 경험까지 역방향으로 설계하는 수업 아이디어 보드</p>
+  </div>
+  <main>
+    <div class="toolbar">
+      <div class="count" id="count1"></div>
+      <button class="add-btn" onclick="toggleForm()"><span id="toggleIcon1"></span><span id="toggleText1">새로운 아이디어 추가하기</span></button>
+    </div>
+
+    <div id="form1Wrap" class="panel hidden">
+      <div class="panel-head"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/><path d="M2 2l7.586 7.586"/><circle cx="11" cy="11" r="2"/></svg><h3>수업 설계 실습 (백워드 3단계)</h3></div>
+      <div id="form1">
+        <div class="meta-box grid2">
+          <div class="field"><label>교과 및 성함</label><input type="text" name="author" placeholder="예: 역사 / 홍길동" required></div>
+          <div class="field"><label>대상 학년 및 단원</label><input type="text" name="target" placeholder="예: 고2 / 프랑스 혁명"></div>
+        </div>
+        <div class="stage s1">
+          <div class="stage-title"><span class="pill b">1단계</span> 바라는 결과 확인</div>
+          <div class="grid2">
+            <div class="field"><span class="lab">개념적 렌즈 (매크로)</span><input type="text" name="lens" placeholder="예: 인과관계와 체제"></div>
+            <div class="field"><span class="lab">교과 핵심 개념 (마이크로)</span><input type="text" name="micro" placeholder="예: 혁명, 권리"></div>
+          </div>
+          <div class="field" style="margin-top:14px;"><span class="lab">일반화된 지식 (도달할 이해)</span><textarea name="generalization" rows="2" placeholder="학생들은 ~을 이해할 것이다."></textarea></div>
+          <div class="field"><span class="lab">핵심 탐구 질문</span><input type="text" name="questions" placeholder="학생들의 탐구를 이끌 질문"></div>
+        </div>
+        <div class="stage s2">
+          <div class="stage-title"><span class="pill p">2단계</span> 평가 증거 결정 (평가 계획)</div>
+          <div class="field"><span class="lab">수행/지필 평가 연계</span><textarea name="assessment" rows="2" placeholder="어떤 수행과제와 시험으로 평가할 것인가?"></textarea></div>
+        </div>
+        <div class="stage s3">
+          <div class="stage-title"><span class="pill a">3단계</span> 학습 경험 계획 (탐구 수업 설계)</div>
+          <div class="field"><span class="lab">도입 - 탐구 - 설명 - 적용의 흐름</span><textarea name="learningExperience" rows="3" placeholder="수업의 전반적인 흐름을 스케치해주세요."></textarea></div>
+        </div>
+        <div class="submit-row"><button type="button" class="submit" onclick="submit1()"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>보드에 등록하기</button></div>
+      </div>
+    </div>
+
+    <div class="sec-head"><span class="idx">i.</span><h3>참여자 설계안</h3><span class="ln"></span></div>
+    <p class="sec-note">등록한 설계안이 아래에 쌓입니다 · 가로로 스크롤하여 열람하고, 카드를 누르면 전체 내용이 크게 열립니다</p>
+    <div class="rail-wrap"><div id="rail1" class="rail"></div></div>
+
+    <div class="sec-head"><span class="idx">ii.</span><h3>실습 예시</h3><span class="ln"></span></div>
+    <div class="rail-wrap"><div id="rail1ex" class="rail"></div><div class="ticks" id="ticks1"></div></div>
+  </main>
+</section>
+
+<!-- ===== BOARD 2 ===== -->
+<section id="board2Section" class="hidden">
+  <div class="hero">
+    <div class="toprule"><span class="ln"></span><span>Performance Task · GRASPS</span><span class="ln"></span></div>
+    <h2 class="display">Make it Real</h2>
+    <p class="kr">목표·역할·대상·상황·결과물·평가기준으로 실제적 맥락의 살아있는 수행과제를 설계</p>
+  </div>
+  <main>
+    <div class="toolbar">
+      <div class="count" id="count2"></div>
+      <button class="add-btn" onclick="toggleForm()"><span id="toggleIcon2"></span><span id="toggleText2">새로운 과제 추가하기</span></button>
+    </div>
+
+    <div id="form2Wrap" class="panel hidden">
+      <div class="panel-head"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg><h3>새 GRASPS 과제 작성</h3></div>
+      <div id="form2">
+        <div class="meta-box meta-grasps" style="margin-bottom:18px;">
+          <div class="field f1"><label>교과 및 성함</label><input type="text" name="author" placeholder="예: 미술 / 박미술" required></div>
+          <div class="field f2"><label>수행 과제명</label><input type="text" name="taskName" placeholder="멋진 프로젝트 이름을 지어주세요"></div>
+        </div>
+        <div class="grasps-grid">
+          <div class="gbox"><span class="lab"><span class="gbadge">G</span> 목표 (Goal)</span><textarea name="goal" rows="3" placeholder="궁극적으로 해결할 문제/목표"></textarea></div>
+          <div class="gbox"><span class="lab"><span class="gbadge">R</span> 역할 (Role)</span><textarea name="role" rows="3" placeholder="학생이 맡을 전문가적 역할"></textarea></div>
+          <div class="gbox"><span class="lab"><span class="gbadge">A</span> 대상 (Audience)</span><textarea name="audience" rows="3" placeholder="결과물을 보여주고 설득할 대상"></textarea></div>
+          <div class="gbox"><span class="lab"><span class="gbadge">S</span> 상황 (Situation)</span><textarea name="situation" rows="3" placeholder="과제가 주어지는 구체적 배경/위기/도전"></textarea></div>
+          <div class="gbox accent span2"><span class="lab"><span class="gbadge">P</span> 결과물 (Product)</span><textarea name="product" rows="2" placeholder="최종적으로 만들어낼 수행 결과물"></textarea></div>
+          <div class="gbox span2"><span class="lab"><span class="gbadge">S</span> 평가 기준 (Standards)</span><textarea name="standards" rows="2" placeholder="결과물을 판단할 핵심 평가 기준 (루브릭)"></textarea></div>
+        </div>
+        <div class="submit-row"><button type="button" class="submit" onclick="submit2()"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>GRASPS 보드에 등록하기</button></div>
+      </div>
+    </div>
+
+    <div class="sec-head"><span class="idx">i.</span><h3>참여자 과제</h3><span class="ln"></span></div>
+    <p class="sec-note">등록한 과제가 아래에 쌓입니다 · 가로로 스크롤하여 열람하고, 카드를 누르면 전체 내용이 크게 열립니다</p>
+    <div class="rail-wrap"><div id="rail2" class="rail"></div></div>
+
+    <div class="sec-head"><span class="idx">ii.</span><h3>실습 예시</h3><span class="ln"></span></div>
+    <div class="rail-wrap"><div id="rail2ex" class="rail"></div><div class="ticks" id="ticks2"></div></div>
+  </main>
+</section>
+
+<div id="overlay" class="overlay" onclick="if(event.target===this)closeModal()"><div class="modal" id="modal"></div></div>
+<div id="toast" class="toast"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span id="toastText"></span></div>
+
+<script>
+const chevUp='<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></svg>';
+const plusCircle='<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>';
+const pencil='<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg>';
+const trash='<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6M14 11v6"/><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg>';
+const xIcon='<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>';
+
+const exampleBoard1=[
+  { id:'ex1', author:"역사 / 홍길동", target:"고2 / 프랑스 혁명과 시민 사회", lens:"인과관계와 체제", micro:"혁명, 권리, 불평등", generalization:"사회적 불평등의 누적은 대중의 혁명을 촉발하며, 이는 기존 체제를 해체하고 새로운 정치적 패러다임을 형성한다.", questions:"현대 사회에서 혁명은 어떤 형태로 일어날 수 있는가?", assessment:"프랑스 혁명과 현대 시민 운동 비교 다큐멘터리 기획안", learningExperience:"1. 도입: 현대 사회 불평등 사례 뉴스 시청\n2. 탐구: 프랑스 혁명 배경 자료 분석\n3. 설명: 혁명과 체제 변화의 인과관계 도출\n4. 적용: 현대 사회에 적용하여 기획안 작성" },
+  { id:'ex2', author:"수학 / 김수학", target:"고2 / 지수함수와 로그함수", lens:"변화와 예측", micro:"함수, 모델링, 데이터", generalization:"수학적 모델링은 현실의 불확실한 데이터를 함수로 표현하여, 미래의 변화를 예측하고 정책적 의사결정을 돕는다.", questions:"자연 현상을 완벽하게 수학적 모델로 구현하는 것은 가능한가?", assessment:"멸종 위기종 개체수 모델링 및 정책 제안서 작성", learningExperience:"1. 도입: 멸종 위기종 뉴스 기사 읽기\n2. 탐구: 개체수 감소 데이터 시각화 및 패턴 찾기\n3. 설명: 지수/로그 함수 모델링 원리 학습\n4. 적용: 데이터 기반 함수 식 도출 및 예측 보고서 작성" }
+];
+const exampleBoard2=[
+  { id:'ex3', author:"미술 / 박미술", taskName:"시선을 멈추게 하는 메시지", goal:"특정 사회적 메시지를 전달하기 위해 가장 효과적인 시각 매체와 표현 기법 선택 및 활용", role:"소셜 임팩트 캠페인 아트 디렉터", audience:"캠페인에 참여할 대중 및 후원 기업", situation:"지역사회의 환경 문제를 알리기 위해 강력한 시각적 자극이 필요한 상황", product:"전통 회화와 디지털 매체를 융합한 포스터 및 작가 노트", standards:"매체 특성의 융합 활용도, 주제 전달력, 창의성, 의도 설명" }
+];
+
+const LS1='workshop_board1_v4', LS2='workshop_board2_v4';
+function load(k){ try{ const v=localStorage.getItem(k); return v?JSON.parse(v):[]; }catch(e){ return []; } }
+function save(k,v){ try{ localStorage.setItem(k,JSON.stringify(v)); }catch(e){} }
+
+let board1Cards=load(LS1);
+let board2Cards=load(LS2);
+let activeTab='board1', isFormOpen=false;
+let editId1=null, editId2=null;
+let currentOpen=null; // {board, id, isEx}
+let view1=[], view2=[];
+function esc(s){ return (s==null?'':String(s)).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+function val(id,name){ const el=document.querySelector('#'+id+' [name="'+name+'"]'); return el?el.value:''; }
+function clearForm(id){ document.querySelectorAll('#'+id+' input, #'+id+' textarea').forEach(el=>el.value=''); }
+
+function setActiveTab(tab){
+  activeTab=tab;
+  document.getElementById('board1Section').classList.toggle('hidden', tab!=='board1');
+  document.getElementById('board2Section').classList.toggle('hidden', tab!=='board2');
+  document.getElementById('tabBtn1').classList.toggle('active', tab==='board1');
+  document.getElementById('tabBtn2').classList.toggle('active', tab==='board2');
+  isFormOpen=false; applyFormVisibility();
+}
+function toggleForm(){ isFormOpen=!isFormOpen; applyFormVisibility(); if(isFormOpen){ const w=document.getElementById(activeTab==='board1'?'form1Wrap':'form2Wrap'); setTimeout(()=>w.scrollIntoView({behavior:'smooth',block:'center'}),60); } }
+function applyFormVisibility(){
+  document.getElementById('form1Wrap').classList.toggle('hidden', !(isFormOpen&&activeTab==='board1'));
+  document.getElementById('form2Wrap').classList.toggle('hidden', !(isFormOpen&&activeTab==='board2'));
+  ['1','2'].forEach(n=>{
+    const open=isFormOpen&&activeTab==='board'+n;
+    document.getElementById('toggleIcon'+n).innerHTML=open?chevUp:plusCircle;
+    document.getElementById('toggleText'+n).textContent=open?'입력창 닫기':(n==='1'?'새로운 아이디어 추가하기':'새로운 과제 추가하기');
+  });
+}
+
+function tone(i){ return 'tg-'+((i%5)+1); }
+function palIdx(c){ var s=String(c && c.id!=null ? c.id : ''); var h=0; for(var i=0;i<s.length;i++){ h=(h*31 + s.charCodeAt(i))>>>0; } return (h%5)+1; }
+function gradClass(c,isEx){ return isEx ? 'tg-ex' : ('tg-'+palIdx(c)); }
+function topClass(c,isEx){ return isEx ? 'p-ex' : ('p-'+palIdx(c)); }
+function renderBoard1(){
+  const rail=document.getElementById('rail1'), railEx=document.getElementById('rail1ex');
+  const sorted=[...board1Cards].sort((a,b)=>(b.createdAt||0)-(a.createdAt||0));
+  view1 = sorted.concat(exampleBoard1.map(e=>Object.assign({__ex:true},e)));
+  rail.innerHTML = sorted.length ? sorted.map((c,i)=>tile1(c,i,false)).join('') : '<div class="rail-empty">아직 등록된 설계안이 없습니다. “새로운 아이디어 추가하기”로 첫 카드를 등록해 보세요.</div>';
+  railEx.innerHTML = exampleBoard1.map((c,i)=>tile1(c,sorted.length+i,true)).join('');
+  document.getElementById('count1').textContent = sorted.length+'개의 설계안 등록됨';
+}
+function tile1(c, idx, isEx){
+  const lens = c.lens ? ('<div class="meta-line"><span class="ml-k">개념적 렌즈</span> '+esc(c.lens)+'</div>') : '';
+  const micro = c.micro ? ('<div class="meta-line"><span class="ml-k">교과 핵심 개념</span> '+esc(c.micro)+'</div>') : '';
+  return '<div class="tile" onclick="openCard(1,'+idx+')">'
+    +'<div class="grad '+gradClass(c,isEx)+'"></div><div class="veil"></div>'
+    +(isEx?'<span class="badge">EXAMPLE</span>':'')
+    +'<div class="content"><div class="num">'+String(idx+1).padStart(2,'0')+'</div>'
+    +'<div class="kicker">Backward Design</div>'
+    +'<div class="ttl">'+esc(c.author)+'</div>'
+    +'<div class="auth">'+(esc(c.target)||'대상 미정')+'</div>'
+    +lens+micro
+    +'</div></div>';
+}
+function renderBoard2(){
+  const rail=document.getElementById('rail2'), railEx=document.getElementById('rail2ex');
+  const sorted=[...board2Cards].sort((a,b)=>(b.createdAt||0)-(a.createdAt||0));
+  view2 = sorted.concat(exampleBoard2.map(e=>Object.assign({__ex:true},e)));
+  rail.innerHTML = sorted.length ? sorted.map((c,i)=>tile2(c,i,false)).join('') : '<div class="rail-empty">아직 등록된 GRASPS 과제가 없습니다. “새로운 과제 추가하기”로 첫 카드를 등록해 보세요.</div>';
+  railEx.innerHTML = exampleBoard2.map((c,i)=>tile2(c,sorted.length+i,true)).join('');
+  document.getElementById('count2').textContent = sorted.length+'개의 과제 등록됨';
+}
+function tile2(c, idx, isEx){
+  return '<div class="tile" onclick="openCard(2,'+idx+')">'
+    +'<div class="grad '+gradClass(c,isEx)+'"></div><div class="veil"></div>'
+    +(isEx?'<span class="badge">EXAMPLE</span>':'')
+    +'<div class="content"><div class="num">'+String(idx+1).padStart(2,'0')+'</div>'
+    +'<div class="kicker">GRASPS Task</div>'
+    +'<div class="ttl">'+(esc(c.taskName)||'제목 없는 과제')+'</div>'
+    +'<div class="auth">'+esc(c.author)+'</div></div></div>';
+}
+
+function openCard(board, idx){
+  const c = board===1 ? view1[idx] : view2[idx];
+  if(!c) return;
+  currentOpen = { board:board, id:c.id, isEx:!!c.__ex };
+  board===1 ? openModal1(c, !!c.__ex) : openModal2(c, !!c.__ex);
+}
+function actionBar(){
+  if(!currentOpen || currentOpen.isEx) return '';
+  return '<div class="m-actions">'
+    +'<button class="m-act" onclick="editCurrent()">'+pencil+' 수정</button>'
+    +'<button class="m-act" onclick="deleteCurrent()">'+trash+' 삭제</button>'
+    +'</div>';
+}
+function row(k,v){ return '<div class="m-row"><div class="m-k">'+k+'</div><div class="m-v">'+(esc(v)||'-')+'</div></div>'; }
+function openModal1(c, isEx){
+  document.getElementById('modal').innerHTML=
+    '<div class="modal-top '+topClass(c,isEx)+'">'
+    +'<button class="m-close" onclick="closeModal()">'+xIcon+'</button>'+actionBar()
+    +'<div class="m-kicker">'+(isEx?'실습 예시 · Backward Design':'Backward Design · 3 Stages')+'</div>'
+    +'<div class="m-title">'+(esc(c.target)||'수업 설계안')+'</div>'
+    +'<div class="m-author">'+esc(c.author)+'</div></div>'
+    +'<div class="modal-body">'
+    +'<div class="m-stage s1"><div class="m-st-title"><span class="pill b">1단계</span> 바라는 결과 확인</div>'
+    +row('개념적 렌즈 (매크로)',c.lens)+row('교과 핵심 개념 (마이크로)',c.micro)+row('일반화된 지식 (도달할 이해)',c.generalization)+row('핵심 탐구 질문',c.questions)+'</div>'
+    +'<div class="m-stage s2"><div class="m-st-title"><span class="pill p">2단계</span> 평가 증거 결정 (평가 계획)</div>'+row('수행/지필 평가 연계',c.assessment)+'</div>'
+    +'<div class="m-stage s3"><div class="m-st-title"><span class="pill a">3단계</span> 학습 경험 계획 (탐구 수업 설계)</div>'+row('도입 - 탐구 - 설명 - 적용의 흐름',c.learningExperience)+'</div>'
+    +'</div>';
+  showOverlay();
+}
+function openModal2(c, isEx){
+  function g(t,l,v,acc){ return '<div class="m-gcell '+(acc?'accent':'')+'"><div class="m-gk"><span class="m-gtag">'+t+'</span> '+l+'</div><div class="m-gv">'+(esc(v)||'-')+'</div></div>'; }
+  document.getElementById('modal').innerHTML=
+    '<div class="modal-top '+topClass(c,isEx)+'">'
+    +'<button class="m-close" onclick="closeModal()">'+xIcon+'</button>'+actionBar()
+    +'<div class="m-kicker">'+(isEx?'실습 예시 · GRASPS':'Performance Task · GRASPS')+'</div>'
+    +'<div class="m-title">'+(esc(c.taskName)||'제목 없는 과제')+'</div>'
+    +'<div class="m-author">'+esc(c.author)+'</div></div>'
+    +'<div class="modal-body"><div class="m-grid">'
+    +g('G','목표 (Goal)',c.goal,false)+g('R','역할 (Role)',c.role,false)+g('A','대상 (Audience)',c.audience,false)+g('S','상황 (Situation)',c.situation,false)+g('P','결과물 (Product)',c.product,false)+g('S','평가 기준 (Standards)',c.standards,false)
+    +'</div></div>';
+  showOverlay();
+}
+function showOverlay(){ document.getElementById('overlay').classList.add('open'); document.body.style.overflow='hidden'; }
+function closeModal(){ document.getElementById('overlay').classList.remove('open'); document.body.style.overflow=''; }
+document.addEventListener('keydown',function(e){ if(e.key==='Escape')closeModal(); });
+
+let toastT;
+function toast(msg){
+  const t=document.getElementById('toast'); document.getElementById('toastText').textContent=msg;
+  t.classList.add('show'); clearTimeout(toastT); toastT=setTimeout(function(){ t.classList.remove('show'); },2600);
+}
+
+function setVal(id,name,v){ const el=document.querySelector('#'+id+' [name="'+name+'"]'); if(el) el.value=(v==null?'':v); }
+function editCurrent(){
+  if(!currentOpen || currentOpen.isEx) return;
+  const id=currentOpen.id;
+  if(currentOpen.board===1){
+    const c=board1Cards.find(x=>x.id===id); if(!c) return;
+    setActiveTab('board1');
+    setVal('form1','author',c.author); setVal('form1','target',c.target); setVal('form1','lens',c.lens); setVal('form1','micro',c.micro); setVal('form1','generalization',c.generalization); setVal('form1','questions',c.questions); setVal('form1','assessment',c.assessment); setVal('form1','learningExperience',c.learningExperience);
+    editId1=id;
+    document.querySelector('#form1 .submit').lastChild.textContent='수정 내용 저장하기';
+  } else {
+    const c=board2Cards.find(x=>x.id===id); if(!c) return;
+    setActiveTab('board2');
+    setVal('form2','author',c.author); setVal('form2','taskName',c.taskName); setVal('form2','goal',c.goal); setVal('form2','role',c.role); setVal('form2','audience',c.audience); setVal('form2','situation',c.situation); setVal('form2','product',c.product); setVal('form2','standards',c.standards);
+    editId2=id;
+    document.querySelector('#form2 .submit').lastChild.textContent='수정 내용 저장하기';
+  }
+  closeModal();
+  isFormOpen=true; applyFormVisibility();
+  const w=document.getElementById(currentOpen.board===1?'form1Wrap':'form2Wrap');
+  setTimeout(()=>w.scrollIntoView({behavior:'smooth',block:'center'}),80);
+}
+function deleteCurrent(){
+  if(!currentOpen || currentOpen.isEx) return;
+  if(!confirm('이 설계안을 삭제할까요? 되돌릴 수 없습니다.')) return;
+  const id=currentOpen.id;
+  if(currentOpen.board===1){ board1Cards=board1Cards.filter(x=>x.id!==id); save(LS1,board1Cards); if(editId1===id){editId1=null;} renderBoard1(); }
+  else { board2Cards=board2Cards.filter(x=>x.id!==id); save(LS2,board2Cards); if(editId2===id){editId2=null;} renderBoard2(); }
+  closeModal();
+  toast('설계안이 삭제되었습니다');
+}
+function submit1(){
+  const author=val('form1','author').trim();
+  if(!author){ const el=document.querySelector('#form1 [name="author"]'); if(el)el.focus(); toast('교과 및 성함을 입력해주세요'); return; }
+  const data={ author:author, target:val('form1','target'), lens:val('form1','lens'), micro:val('form1','micro'), generalization:val('form1','generalization'), questions:val('form1','questions'), assessment:val('form1','assessment'), learningExperience:val('form1','learningExperience') };
+  if(editId1!=null){
+    const c=board1Cards.find(x=>x.id===editId1); if(c) Object.assign(c,data);
+    editId1=null; document.querySelector('#form1 .submit').lastChild.textContent='보드에 등록하기';
+    save(LS1,board1Cards); clearForm('form1'); isFormOpen=false; applyFormVisibility(); renderBoard1();
+    toast('설계안이 수정되었습니다'); return;
+  }
+  data.id=Date.now(); data.createdAt=Date.now(); board1Cards.push(data);
+  save(LS1,board1Cards); clearForm('form1'); isFormOpen=false; applyFormVisibility(); renderBoard1();
+  toast('설계안이 보드에 등록되었습니다');
+  setTimeout(function(){ const r=document.getElementById('rail1'); if(r.firstElementChild&&r.firstElementChild.scrollIntoView)r.firstElementChild.scrollIntoView({behavior:'smooth',inline:'center',block:'nearest'}); },140);
+}
+function submit2(){
+  const author=val('form2','author').trim();
+  if(!author){ const el=document.querySelector('#form2 [name="author"]'); if(el)el.focus(); toast('교과 및 성함을 입력해주세요'); return; }
+  const data={ author:author, taskName:val('form2','taskName'), goal:val('form2','goal'), role:val('form2','role'), audience:val('form2','audience'), situation:val('form2','situation'), product:val('form2','product'), standards:val('form2','standards') };
+  if(editId2!=null){
+    const c=board2Cards.find(x=>x.id===editId2); if(c) Object.assign(c,data);
+    editId2=null; document.querySelector('#form2 .submit').lastChild.textContent='GRASPS 보드에 등록하기';
+    save(LS2,board2Cards); clearForm('form2'); isFormOpen=false; applyFormVisibility(); renderBoard2();
+    toast('과제가 수정되었습니다'); return;
+  }
+  data.id=Date.now(); data.createdAt=Date.now(); board2Cards.push(data);
+  save(LS2,board2Cards); clearForm('form2'); isFormOpen=false; applyFormVisibility(); renderBoard2();
+  toast('GRASPS 과제가 보드에 등록되었습니다');
+  setTimeout(function(){ const r=document.getElementById('rail2'); if(r.firstElementChild&&r.firstElementChild.scrollIntoView)r.firstElementChild.scrollIntoView({behavior:'smooth',inline:'center',block:'nearest'}); },140);
+}
+
+function buildTicks(id){ const el=document.getElementById(id); let h=''; for(let i=0;i<40;i++){ const tall=(i%5===0); h+='<i style="height:'+(tall?22:10)+'px"></i>'; } el.innerHTML=h; }
+buildTicks('ticks1'); buildTicks('ticks2');
+
+renderBoard1(); renderBoard2(); applyFormVisibility();
+</script>
+</body>
+</html>

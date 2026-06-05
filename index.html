@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2026 AI융합교육연구회 연수활동</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&family=Gowun+Batang:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css" />
+<style>
+  :root{
+    --ink:#10171a; --ink-soft:#46555b; --ink-faint:#7e8e94;
+    --green:#2f6f55; --green-d:#214f3d;
+    --sky:#3a86c8; --sky-d:#2b6aa3;
+    --line:#dbe7e6; --card:#ffffff;
+    --shadow:0 24px 60px -22px rgba(16,23,26,.32), 0 6px 16px rgba(16,23,26,.08);
+    --shadow-lg:0 40px 90px -28px rgba(16,23,26,.42);
+  }
+  *{ box-sizing:border-box; margin:0; padding:0; }
+  html{ scroll-behavior:smooth; }
+  body{
+    font-family:"Pretendard Variable","Pretendard",-apple-system,system-ui,sans-serif;
+    color:var(--ink); -webkit-font-smoothing:antialiased; letter-spacing:-.01em;
+    min-height:100vh; display:flex; flex-direction:column; align-items:center; justify-content:center;
+    padding:48px 22px; position:relative; overflow-x:hidden;
+    background:
+      radial-gradient(900px 520px at 18% 8%, #e9f6ef 0%, transparent 58%),
+      radial-gradient(820px 480px at 86% 14%, #e6f1fb 0%, transparent 56%),
+      radial-gradient(700px 460px at 50% 100%, #f3faf6 0%, transparent 60%),
+      linear-gradient(180deg,#fbfefe 0%,#eef6f6 100%);
+  }
+  /* floating soft blobs */
+  .blob{ position:fixed; border-radius:50%; filter:blur(8px); opacity:.5; z-index:-1; animation:float 14s ease-in-out infinite; }
+  .b1{ width:220px; height:220px; left:-60px; top:14%; background:radial-gradient(circle at 30% 30%, #bfe6d3, #9fd6bd); }
+  .b2{ width:170px; height:170px; right:-40px; top:24%; background:radial-gradient(circle at 30% 30%, #c5e2f7, #a7d2f0); animation-delay:-5s; }
+  .b3{ width:140px; height:140px; left:12%; bottom:8%; background:radial-gradient(circle at 30% 30%, #d6f0e3, #b8e4cf); animation-delay:-9s; }
+  @keyframes float{ 0%,100%{ transform:translateY(0) translateX(0);} 50%{ transform:translateY(-22px) translateX(10px);} }
+
+  .card{
+    width:100%; max-width:680px; background:var(--card); border:1px solid var(--line);
+    border-radius:30px; box-shadow:var(--shadow); padding:58px 52px 50px; text-align:center;
+    animation:rise .6s cubic-bezier(.2,.7,.3,1); position:relative; overflow:hidden;
+  }
+  .card::before{ content:""; position:absolute; top:0; left:0; right:0; height:5px;
+    background:linear-gradient(90deg,#3f7d63,#4c97d6,#7fb6df); }
+  @keyframes rise{ from{ opacity:0; transform:translateY(20px);} to{ opacity:1; transform:translateY(0);} }
+
+  .logo{ width:62px; height:62px; border-radius:18px; margin:0 auto 26px;
+    background:linear-gradient(150deg,#3f7d63,#214f3d); display:flex; align-items:center; justify-content:center;
+    color:#eef6f3; box-shadow:0 14px 28px -10px rgba(33,79,61,.6); }
+  .logo svg{ width:30px; height:30px; }
+
+  .eyebrow{ font-size:12px; font-weight:700; letter-spacing:.24em; text-transform:uppercase; color:var(--green); }
+  .year{ font-family:"Cormorant Garamond",serif; font-style:italic; font-size:64px; line-height:1; color:var(--sky-d); margin:14px 0 6px; }
+  h1{ font-family:"Gowun Batang",serif; font-size:27px; font-weight:700; line-height:1.45; letter-spacing:-.02em; }
+  .sub{ font-size:15px; color:var(--ink-soft); margin-top:18px; line-height:1.7; }
+
+  .divider{ display:flex; align-items:center; gap:14px; margin:34px auto 30px; max-width:340px; color:var(--ink-faint); font-size:12px; letter-spacing:.16em; }
+  .divider .ln{ flex:1; height:1px; background:var(--line); }
+
+  .cta{
+    display:inline-flex; align-items:center; gap:11px; text-decoration:none;
+    background:linear-gradient(135deg,#3f7d63,#214f3d); color:#eef6f3;
+    padding:18px 38px; border-radius:999px; font-size:16.5px; font-weight:700; letter-spacing:-.01em;
+    box-shadow:0 16px 34px -12px rgba(33,79,61,.65); transition:transform .2s, box-shadow .2s;
+  }
+  .cta:hover{ transform:translateY(-3px); box-shadow:0 28px 54px -16px rgba(33,79,61,.7); }
+  .cta:active{ transform:translateY(-1px); }
+  .cta svg{ width:20px; height:20px; transition:transform .2s; }
+  .cta:hover svg{ transform:translateX(4px); }
+
+  .note{ font-size:12.5px; color:var(--ink-faint); margin-top:22px; }
+
+  footer{ margin-top:30px; font-size:12px; color:var(--ink-faint); text-align:center; letter-spacing:.02em; }
+
+  @media (max-width:560px){
+    .card{ padding:44px 28px 38px; border-radius:24px; }
+    .year{ font-size:48px; } h1{ font-size:22px; }
+    .cta{ width:100%; justify-content:center; }
+  }
+</style>
+</head>
+<body>
+  <div class="blob b1"></div>
+  <div class="blob b2"></div>
+  <div class="blob b3"></div>
+
+  <div class="card">
+    <div class="logo">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+    </div>
+
+    <div class="eyebrow">중대부고 · Teacher Learning Community</div>
+    <div class="year display">2026</div>
+    <h1>AI 융합교육연구회<br>교사 연수에 오신 것을 환영합니다</h1>
+    <p class="sub">함께 배우고, 설계하고, 나누는 시간입니다.<br>아래 버튼을 눌러 연수 활동을 시작해 보세요.</p>
+
+    <div class="divider"><span class="ln"></span><span>START</span><span class="ln"></span></div>
+
+    <a class="cta" href="workshop_board.html">
+      2026 AI융합교육연구회 연수활동
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+    </a>
+
+    <p class="note">3차시 · 개념기반 수업 설계 워크숍</p>
+  </div>
+
+  <footer>2026 중대부고 AI 융합교육연구회</footer>
+</body>
+</html>
